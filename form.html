@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pemanggil Siswa</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #e0f0ff;
+      padding: 20px;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h2>Panggil Siswa</h2>
+  <input id="nama" placeholder="Masukkan nama siswa" />
+  <br>
+  <button onclick="kirim()">Panggil</button>
+
+  <script>
+    function kirim() {
+      const nama = document.getElementById("nama").value;
+      localStorage.setItem("namaDipanggil", nama);
+      alert("Nama dikirim!");
+    }
+  </script>
+</body>
+</html>

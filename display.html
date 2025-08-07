@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Display Pemanggilan</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #e0f7ff;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Nama yang Dipanggil:</h2>
+  <h1 id="output">Menunggu...</h1>
+
+  <script>
+    function updateNama() {
+      const nama = localStorage.getItem("namaDipanggil") || "Menunggu...";
+      document.getElementById("output").innerText = nama;
+
+      if ('speechSynthesis' in window && nama !== "Menunggu...") {
+        const utterance = new SpeechSynthesisUtterance(nama);
+        speechSynthesis.speak(utterance);
+      }
+    }
+
+    setInterval(updateNama, 1000); // cek setiap 1 detik
+  </script>
+</body>
+</html>
