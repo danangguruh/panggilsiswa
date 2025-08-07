@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Display Pemanggil Siswa</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #e3f2fd;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 4em;
+      color: #0d47a1;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="calledName">Menunggu...</h1>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('nama');
+    const display = document.getElementById('calledName');
+
+    if (name) {
+      display.textContent = name;
+
+      const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'id-ID';
+
+        // Coba pilih suara bahasa Indonesia yang lebih natural
+        const voices = speechSynthesis.getVoices();
+        const indoVoice = voices.find(v => v.lang === 'id-ID') || voices.find(v => v.lang.startsWith('id'));
+
+        if (indoVoice) {
+          utterance.voice = indoVoice;
+        }
+
+        speechSynthesis.speak(utterance);
+      };
+
+      // Tunggu sejenak agar suara bisa dimuat
+      window.speechSynthesis.onvoiceschanged = () => speak("Ananda " + name + ", silakan menuju ruang guru.");
+    }
+  </script>
+</body>
+</html>
